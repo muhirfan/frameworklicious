@@ -1,61 +1,52 @@
-//
-//  ContentView.swift
-//  App Intent Exploration
-//
-//  Created by Kaushik Manian on 23/4/25.
-//
-
 import SwiftUI
-import SwiftData
+import AppIntents
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+  // read/write from the same key your intent uses
+  @AppStorage("selectedColor") private var storedColorName: String = ColorChoice.red.rawValue
 
-    var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
+  // still show a status label if you like
+  @State private var statusMessage = "Tap a color or ask Siri"
+
+  // compute a Color from the stored name
+  private var selectedColor: Color {
+    ColorChoice(rawValue: storedColorName)?.swiftUIColor ?? .gray
+  }
+
+  var body: some View {
+    VStack(spacing: 30) {
+      Rectangle()
+        .fill(selectedColor)
+        .frame(width: 200, height: 200)
+        .cornerRadius(20)
+        .overlay(Text(statusMessage).foregroundColor(.white).bold())
+
+      HStack(spacing: 15) {
+        ForEach(ColorChoice.allCases, id: \.self) { choice in
+          Button(choice.rawValue) {
+            Task {
+              // in-app invocation (still donates + updates UI immediately)
+              var intent = ChangeColorIntent()
+              intent.color = choice
+              do {
+                let response = try await intent.perform()
+                let name = response.value ?? choice.rawValue
+                statusMessage = "Color set to \(name)"
+                // `@AppStorage` already saved it for us
+              } catch {
+                statusMessage = "Error: \(error.localizedDescription)"
+              }
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
+          }
+          .padding(8)
+          .overlay(RoundedRectangle(cornerRadius: 8).stroke())
         }
+      }
     }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
+    .padding()
+    // also refresh when coming back from the background
+    .onChange(of: UIApplication.shared.applicationState) { _ in
+      statusMessage = "Tap a color or ask Siri"
     }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
-        }
-    }
-}
-
-#Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+  }
 }
