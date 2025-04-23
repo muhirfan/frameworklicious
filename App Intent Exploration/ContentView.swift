@@ -26,7 +26,7 @@ struct ContentView: View {
           Button(choice.rawValue) {
             Task {
               // in-app invocation (still donates + updates UI immediately)
-              var intent = ChangeColorIntent()
+              let intent = ChangeColorIntent()
               intent.color = choice
               do {
                 let response = try await intent.perform()
@@ -45,8 +45,8 @@ struct ContentView: View {
     }
     .padding()
     // also refresh when coming back from the background
-    .onChange(of: UIApplication.shared.applicationState) { _ in
-      statusMessage = "Tap a color or ask Siri"
+    .onChange(of: UIApplication.shared.applicationState) {
+        statusMessage = "Tap a color or ask Siri"
     }
   }
 }
