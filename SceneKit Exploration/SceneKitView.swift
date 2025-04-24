@@ -25,20 +25,25 @@ struct SceneKitView: UIViewRepresentable {
         func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
             guard let cube = cubeNode, let camera = cameraNode else { return }
 
-            // Update camera to follow cube
+            // Make camera follow the cube
             let cubePos = cube.presentation.position
             camera.position = SCNVector3(cubePos.x, cubePos.y + 5, cubePos.z + 10)
 
             switch currentAction {
             case .jump:
+                // Apply a single impulse, then clear the action so gravity can pull it back
                 cube.physicsBody?.applyForce(SCNVector3(0, 10, 0), asImpulse: true)
+                currentAction = .none
+
             case .spin:
                 cube.physicsBody?.applyTorque(SCNVector4(0, 1, 0, 5), asImpulse: true)
+
             case .funMode:
                 if time - lastDropTime > 1 {
                     dropRandomShape(above: cubePos)
                     lastDropTime = time
                 }
+
             default:
                 break
             }
@@ -63,9 +68,11 @@ struct SceneKitView: UIViewRepresentable {
             )
 
             let node = SCNNode(geometry: geometry)
-            node.position = SCNVector3(position.x + Float.random(in: -2...2),
-                                       position.y + 5,
-                                       position.z + Float.random(in: -2...2))
+            node.position = SCNVector3(
+                position.x + Float.random(in: -2...2),
+                position.y + 5,
+                position.z + Float.random(in: -2...2)
+            )
             node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
             scene.rootNode.addChildNode(node)
         }
@@ -79,6 +86,9 @@ struct SceneKitView: UIViewRepresentable {
         let sceneView = SCNView()
         let scene = SCNScene()
         context.coordinator.scene = scene
+
+        // Ensure gravity is enabled (SceneKit default is (0, -9.8, 0))
+        scene.physicsWorld.gravity = SCNVector3(0, -9.8, 0)
 
         sceneView.scene = scene
         sceneView.backgroundColor = .black
@@ -119,7 +129,7 @@ struct SceneKitView: UIViewRepresentable {
         scene.rootNode.addChildNode(cubeNode)
         context.coordinator.cubeNode = cubeNode
 
-        // Camera constraint to follow cube
+        // Camera constraint to look at the cube
         let constraint = SCNLookAtConstraint(target: cubeNode)
         constraint.isGimbalLockEnabled = true
         cameraNode.constraints = [constraint]
