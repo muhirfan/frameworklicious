@@ -32,8 +32,6 @@ This makes it a powerful tool for building everything from visualizations to imm
 
 ## Additional Resources
 
-- [SceneKit Catalog (Official Sample Code)](https://developer.apple.com/sample-code/wwdc/2014/downloads/SceneKit-Catalog.zip)
-- [SceneKit Tutorial (RayWenderlich)](https://www.raywenderlich.com/761-scene-kit-tutorial-getting-started)
 - [SceneKit with Swift – Part 1 (Kodeco)](https://www.kodeco.com/2243-scene-kit-tutorial-getting-started)
 
 ---
