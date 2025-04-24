@@ -8,44 +8,51 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var controller = SceneKitController()
+    @State private var sceneAction: SceneKitView.SceneAction = .none
+    @State private var isFunModeOn = false
 
     var body: some View {
         VStack {
-            SceneKitView(controller: controller)
+            SceneKitView(action: $sceneAction)
                 .edgesIgnoringSafeArea(.all)
                 .overlay(
                     VStack {
                         Spacer()
-                        HStack {
+
+                        HStack(spacing: 20) {
                             Button("Jump") {
-                                controller.jump()
+                                sceneAction = .jump
                             }
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .clipShape(Capsule())
+                            .buttonStyle(ActionButtonStyle(color: .blue))
 
                             Button("Spin") {
-                                controller.spin()
+                                sceneAction = .spin
                             }
-                            .padding()
-                            .background(Color.green)
-                            .foregroundColor(.white)
-                            .clipShape(Capsule())
+                            .buttonStyle(ActionButtonStyle(color: .purple))
 
-                            Button("Toggle Gravity") {
-                                controller.toggleGravity()
+                            Button(isFunModeOn ? "Stop Fun Mode" : "Start Fun Mode") {
+                                isFunModeOn.toggle()
+                                sceneAction = isFunModeOn ? .funMode : .none
                             }
-                            .padding()
-                            .background(Color.orange)
-                            .foregroundColor(.white)
-                            .clipShape(Capsule())
+                            .buttonStyle(ActionButtonStyle(color: .pink))
                         }
                         .padding()
                     }
                 )
         }
+    }
+}
+
+struct ActionButtonStyle: ButtonStyle {
+    var color: Color
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding(.horizontal, 20)
+            .padding(.vertical, 10)
+            .background(color.opacity(configuration.isPressed ? 0.7 : 1))
+            .foregroundColor(.white)
+            .clipShape(Capsule())
     }
 }
 
