@@ -16,7 +16,7 @@ struct VisualAppClipDemoApp: App {
         WindowGroup {
             Group {
                 if let id = launchedProductID, let product = sampleProducts[id] {
-                    ProductView(product: product)
+                    ProductDetailView(product: product)
                 } else {
                     Text("Welcome to the full app!")
                 }

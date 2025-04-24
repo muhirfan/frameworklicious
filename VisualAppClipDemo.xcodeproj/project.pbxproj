@@ -83,6 +83,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Product.swift,
+				ProductDetailView.swift,
 				ProductView.swift,
 			);
 			target = 808F39152DB9E90F0019B6F6 /* VisualAppClipDemo */;
