@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		808F39702DB9E92A0019B6F6 /* VisualAppClipDemoClip.app in Embed App Clips */ = {isa = PBXBuildFile; fileRef = 808F39492DB9E9290019B6F6 /* VisualAppClipDemoClip.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		808F39292DB9E9100019B6F6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -21,13 +25,68 @@
 			remoteGlobalIDString = 808F39152DB9E90F0019B6F6;
 			remoteInfo = VisualAppClipDemo;
 		};
+		808F395D2DB9E92A0019B6F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 808F390E2DB9E90F0019B6F6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 808F39482DB9E9290019B6F6;
+			remoteInfo = VisualAppClipDemoClip;
+		};
+		808F39672DB9E92A0019B6F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 808F390E2DB9E90F0019B6F6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 808F39482DB9E9290019B6F6;
+			remoteInfo = VisualAppClipDemoClip;
+		};
+		808F396E2DB9E92A0019B6F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 808F390E2DB9E90F0019B6F6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 808F39482DB9E9290019B6F6;
+			remoteInfo = VisualAppClipDemoClip;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		808F39752DB9E92A0019B6F6 /* Embed App Clips */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/AppClips";
+			dstSubfolderSpec = 16;
+			files = (
+				808F39702DB9E92A0019B6F6 /* VisualAppClipDemoClip.app in Embed App Clips */,
+			);
+			name = "Embed App Clips";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		808F39162DB9E90F0019B6F6 /* VisualAppClipDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VisualAppClipDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		808F39282DB9E9100019B6F6 /* VisualAppClipDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VisualAppClipDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		808F39322DB9E9100019B6F6 /* VisualAppClipDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VisualAppClipDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		808F39492DB9E9290019B6F6 /* VisualAppClipDemoClip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VisualAppClipDemoClip.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		808F395C2DB9E92A0019B6F6 /* VisualAppClipDemoClipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VisualAppClipDemoClipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		808F39662DB9E92A0019B6F6 /* VisualAppClipDemoClipUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VisualAppClipDemoClipUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		808F39712DB9E92A0019B6F6 /* Exceptions for "VisualAppClipDemoClip" folder in "VisualAppClipDemoClip" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 808F39482DB9E9290019B6F6 /* VisualAppClipDemoClip */;
+		};
+		808F397F2DB9E9720019B6F6 /* Exceptions for "VisualAppClipDemoClip" folder in "VisualAppClipDemo" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ProductView.swift,
+			);
+			target = 808F39152DB9E90F0019B6F6 /* VisualAppClipDemo */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		808F39182DB9E90F0019B6F6 /* VisualAppClipDemo */ = {
@@ -43,6 +102,25 @@
 		808F39352DB9E9100019B6F6 /* VisualAppClipDemoUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = VisualAppClipDemoUITests;
+			sourceTree = "<group>";
+		};
+		808F394A2DB9E9290019B6F6 /* VisualAppClipDemoClip */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				808F397F2DB9E9720019B6F6 /* Exceptions for "VisualAppClipDemoClip" folder in "VisualAppClipDemo" target */,
+				808F39712DB9E92A0019B6F6 /* Exceptions for "VisualAppClipDemoClip" folder in "VisualAppClipDemoClip" target */,
+			);
+			path = VisualAppClipDemoClip;
+			sourceTree = "<group>";
+		};
+		808F395F2DB9E92A0019B6F6 /* VisualAppClipDemoClipTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = VisualAppClipDemoClipTests;
+			sourceTree = "<group>";
+		};
+		808F39692DB9E92A0019B6F6 /* VisualAppClipDemoClipUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = VisualAppClipDemoClipUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -69,6 +147,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		808F39462DB9E9290019B6F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		808F39592DB9E92A0019B6F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		808F39632DB9E92A0019B6F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -78,6 +177,9 @@
 				808F39182DB9E90F0019B6F6 /* VisualAppClipDemo */,
 				808F392B2DB9E9100019B6F6 /* VisualAppClipDemoTests */,
 				808F39352DB9E9100019B6F6 /* VisualAppClipDemoUITests */,
+				808F394A2DB9E9290019B6F6 /* VisualAppClipDemoClip */,
+				808F395F2DB9E92A0019B6F6 /* VisualAppClipDemoClipTests */,
+				808F39692DB9E92A0019B6F6 /* VisualAppClipDemoClipUITests */,
 				808F39172DB9E90F0019B6F6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,6 +190,9 @@
 				808F39162DB9E90F0019B6F6 /* VisualAppClipDemo.app */,
 				808F39282DB9E9100019B6F6 /* VisualAppClipDemoTests.xctest */,
 				808F39322DB9E9100019B6F6 /* VisualAppClipDemoUITests.xctest */,
+				808F39492DB9E9290019B6F6 /* VisualAppClipDemoClip.app */,
+				808F395C2DB9E92A0019B6F6 /* VisualAppClipDemoClipTests.xctest */,
+				808F39662DB9E92A0019B6F6 /* VisualAppClipDemoClipUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,10 +207,12 @@
 				808F39122DB9E90F0019B6F6 /* Sources */,
 				808F39132DB9E90F0019B6F6 /* Frameworks */,
 				808F39142DB9E90F0019B6F6 /* Resources */,
+				808F39752DB9E92A0019B6F6 /* Embed App Clips */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				808F396F2DB9E92A0019B6F6 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				808F39182DB9E90F0019B6F6 /* VisualAppClipDemo */,
@@ -163,6 +270,74 @@
 			productReference = 808F39322DB9E9100019B6F6 /* VisualAppClipDemoUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		808F39482DB9E9290019B6F6 /* VisualAppClipDemoClip */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 808F39722DB9E92A0019B6F6 /* Build configuration list for PBXNativeTarget "VisualAppClipDemoClip" */;
+			buildPhases = (
+				808F39452DB9E9290019B6F6 /* Sources */,
+				808F39462DB9E9290019B6F6 /* Frameworks */,
+				808F39472DB9E9290019B6F6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				808F394A2DB9E9290019B6F6 /* VisualAppClipDemoClip */,
+			);
+			name = VisualAppClipDemoClip;
+			packageProductDependencies = (
+			);
+			productName = VisualAppClipDemoClip;
+			productReference = 808F39492DB9E9290019B6F6 /* VisualAppClipDemoClip.app */;
+			productType = "com.apple.product-type.application.on-demand-install-capable";
+		};
+		808F395B2DB9E92A0019B6F6 /* VisualAppClipDemoClipTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 808F39762DB9E92A0019B6F6 /* Build configuration list for PBXNativeTarget "VisualAppClipDemoClipTests" */;
+			buildPhases = (
+				808F39582DB9E92A0019B6F6 /* Sources */,
+				808F39592DB9E92A0019B6F6 /* Frameworks */,
+				808F395A2DB9E92A0019B6F6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				808F395E2DB9E92A0019B6F6 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				808F395F2DB9E92A0019B6F6 /* VisualAppClipDemoClipTests */,
+			);
+			name = VisualAppClipDemoClipTests;
+			packageProductDependencies = (
+			);
+			productName = VisualAppClipDemoClipTests;
+			productReference = 808F395C2DB9E92A0019B6F6 /* VisualAppClipDemoClipTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		808F39652DB9E92A0019B6F6 /* VisualAppClipDemoClipUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 808F39792DB9E92A0019B6F6 /* Build configuration list for PBXNativeTarget "VisualAppClipDemoClipUITests" */;
+			buildPhases = (
+				808F39622DB9E92A0019B6F6 /* Sources */,
+				808F39632DB9E92A0019B6F6 /* Frameworks */,
+				808F39642DB9E92A0019B6F6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				808F39682DB9E92A0019B6F6 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				808F39692DB9E92A0019B6F6 /* VisualAppClipDemoClipUITests */,
+			);
+			name = VisualAppClipDemoClipUITests;
+			packageProductDependencies = (
+			);
+			productName = VisualAppClipDemoClipUITests;
+			productReference = 808F39662DB9E92A0019B6F6 /* VisualAppClipDemoClipUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -184,6 +359,17 @@
 						CreatedOnToolsVersion = 16.2;
 						TestTargetID = 808F39152DB9E90F0019B6F6;
 					};
+					808F39482DB9E9290019B6F6 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					808F395B2DB9E92A0019B6F6 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 808F39482DB9E9290019B6F6;
+					};
+					808F39652DB9E92A0019B6F6 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 808F39482DB9E9290019B6F6;
+					};
 				};
 			};
 			buildConfigurationList = 808F39112DB9E90F0019B6F6 /* Build configuration list for PBXProject "VisualAppClipDemo" */;
@@ -203,6 +389,9 @@
 				808F39152DB9E90F0019B6F6 /* VisualAppClipDemo */,
 				808F39272DB9E9100019B6F6 /* VisualAppClipDemoTests */,
 				808F39312DB9E9100019B6F6 /* VisualAppClipDemoUITests */,
+				808F39482DB9E9290019B6F6 /* VisualAppClipDemoClip */,
+				808F395B2DB9E92A0019B6F6 /* VisualAppClipDemoClipTests */,
+				808F39652DB9E92A0019B6F6 /* VisualAppClipDemoClipUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -223,6 +412,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		808F39302DB9E9100019B6F6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		808F39472DB9E9290019B6F6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		808F395A2DB9E92A0019B6F6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		808F39642DB9E92A0019B6F6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -253,6 +463,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		808F39452DB9E9290019B6F6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		808F39582DB9E92A0019B6F6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		808F39622DB9E92A0019B6F6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -265,6 +496,21 @@
 			isa = PBXTargetDependency;
 			target = 808F39152DB9E90F0019B6F6 /* VisualAppClipDemo */;
 			targetProxy = 808F39332DB9E9100019B6F6 /* PBXContainerItemProxy */;
+		};
+		808F395E2DB9E92A0019B6F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 808F39482DB9E9290019B6F6 /* VisualAppClipDemoClip */;
+			targetProxy = 808F395D2DB9E92A0019B6F6 /* PBXContainerItemProxy */;
+		};
+		808F39682DB9E92A0019B6F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 808F39482DB9E9290019B6F6 /* VisualAppClipDemoClip */;
+			targetProxy = 808F39672DB9E92A0019B6F6 /* PBXContainerItemProxy */;
+		};
+		808F396F2DB9E92A0019B6F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 808F39482DB9E9290019B6F6 /* VisualAppClipDemoClip */;
+			targetProxy = 808F396E2DB9E92A0019B6F6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -518,6 +764,142 @@
 			};
 			name = Release;
 		};
+		808F39732DB9E92A0019B6F6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = VisualAppClipDemoClip/VisualAppClipDemoClip.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"VisualAppClipDemoClip/Preview Content\"";
+				DEVELOPMENT_TEAM = Z8PS8WLYZ6;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VisualAppClipDemoClip/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = VisualAppClipDemo;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kaushikmanian.VisualAppClipDemo.Clip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		808F39742DB9E92A0019B6F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = VisualAppClipDemoClip/VisualAppClipDemoClip.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"VisualAppClipDemoClip/Preview Content\"";
+				DEVELOPMENT_TEAM = Z8PS8WLYZ6;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VisualAppClipDemoClip/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = VisualAppClipDemo;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kaushikmanian.VisualAppClipDemo.Clip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		808F39772DB9E92A0019B6F6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z8PS8WLYZ6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kaushikmanian.VisualAppClipDemo.VisualAppClipDemoClipTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VisualAppClipDemoClip.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VisualAppClipDemoClip";
+			};
+			name = Debug;
+		};
+		808F39782DB9E92A0019B6F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z8PS8WLYZ6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kaushikmanian.VisualAppClipDemo.VisualAppClipDemoClipTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VisualAppClipDemoClip.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VisualAppClipDemoClip";
+			};
+			name = Release;
+		};
+		808F397A2DB9E92A0019B6F6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z8PS8WLYZ6;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kaushikmanian.VisualAppClipDemo.VisualAppClipDemoClipUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = VisualAppClipDemoClip;
+			};
+			name = Debug;
+		};
+		808F397B2DB9E92A0019B6F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z8PS8WLYZ6;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kaushikmanian.VisualAppClipDemo.VisualAppClipDemoClipUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = VisualAppClipDemoClip;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -553,6 +935,33 @@
 			buildConfigurations = (
 				808F39432DB9E9100019B6F6 /* Debug */,
 				808F39442DB9E9100019B6F6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		808F39722DB9E92A0019B6F6 /* Build configuration list for PBXNativeTarget "VisualAppClipDemoClip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				808F39732DB9E92A0019B6F6 /* Debug */,
+				808F39742DB9E92A0019B6F6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		808F39762DB9E92A0019B6F6 /* Build configuration list for PBXNativeTarget "VisualAppClipDemoClipTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				808F39772DB9E92A0019B6F6 /* Debug */,
+				808F39782DB9E92A0019B6F6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		808F39792DB9E92A0019B6F6 /* Build configuration list for PBXNativeTarget "VisualAppClipDemoClipUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				808F397A2DB9E92A0019B6F6 /* Debug */,
+				808F397B2DB9E92A0019B6F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
