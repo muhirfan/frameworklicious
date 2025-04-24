@@ -54,7 +54,6 @@ This sample SwiftUI app showcases **both the Central and Peripheral roles** of C
 
 ### Documentation
 - [Core Bluetooth Framework Reference](https://developer.apple.com/documentation/corebluetooth)
-- [Core Bluetooth Programming Guide](https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/Introduction.html)
 - [Apple Bluetooth Overview Hub](https://developer.apple.com/bluetooth/)
 
 ### Human Interface Guidelines
