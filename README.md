@@ -58,8 +58,6 @@ A simple, iPhone-style calendar app clone — in a tiny standalone package.
 
 ### Human Interface Guidelines
 - [General HIG](https://developer.apple.com/design/human-interface-guidelines)
-- [Date & Time Pickers](https://developer.apple.com/design/human-interface-guidelines/components/pickers/)
-- [Popovers](https://developer.apple.com/design/human-interface-guidelines/components/popovers/)
 - [Privacy Guidelines](https://developer.apple.com/design/human-interface-guidelines/privacy/)
 
 ### WWDC Sessions
