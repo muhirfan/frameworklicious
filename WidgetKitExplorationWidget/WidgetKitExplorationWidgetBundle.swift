@@ -19,24 +19,24 @@ import SwiftUI
 //  }
 //}
 
-
-@main
-struct WidgetKitExplorationWidget: Widget {
-  let kind: String = "WidgetKitExplorationWidget"
-
-  var body: some WidgetConfiguration {
-    StaticConfiguration(kind: kind,
-                        provider: Provider()) { entry in
-      WidgetKitExplorationWidgetEntryView(entry: entry)
-    }
-    .configurationDisplayName("Quote of the Hour")
-    .description("A fresh random quote, now on your Home Screen & Lock Screen.")
-    .supportedFamilies([
-      .systemSmall,
-      .systemMedium,
-      .accessoryCircular,
-      .accessoryRectangular,
-      .accessoryInline
-    ])
-  }
-}
+//
+//@main
+//struct WidgetKitExplorationWidget: Widget {
+//  let kind: String = "WidgetKitExplorationWidget"
+//
+//  var body: some WidgetConfiguration {
+//    StaticConfiguration(kind: kind,
+//                        provider: Provider()) { entry in
+//      WidgetKitExplorationWidgetEntryView(entry: entry)
+//    }
+//    .configurationDisplayName("Quote of the Hour")
+//    .description("A fresh random quote, now on your Home Screen & Lock Screen.")
+//    .supportedFamilies([
+//      .systemSmall,
+//      .systemMedium,
+//      .accessoryCircular,
+//      .accessoryRectangular,
+//      .accessoryInline
+//    ])
+//  }
+//}

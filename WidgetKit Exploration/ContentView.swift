@@ -1,61 +1,84 @@
 //
-//  ContentView.swift
-//  WidgetKit Exploration
+// ContentView.swift
+// WidgetKit Exploration
 //
-//  Created by Kaushik Manian on 24/4/25.
+// Simplified to just a quote picker driving the widget.
+// Created by Kaushik Manian on 24/4/25.
 //
 
 import SwiftUI
-import SwiftData
+import WidgetKit
+
+// 1) Same set of quotes your widget shows
+fileprivate let sampleQuotes = [
+  "Stay hungry, stay foolish.",
+  "The only limit to our tomorrow is our doubts of today.",
+  "Innovation distinguishes between a leader and a follower.",
+  "Code is like humor. When you have to explain it, it’s bad."
+]
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-
-    var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
-        }
+  var body: some View {
+    NavigationStack {
+      List {
+        QuotePickerSection()
+      }
+      .navigationTitle("Pick a Quote")
     }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
-        }
-    }
+  }
 }
 
+// MARK: – The picker section
+
+private struct QuotePickerSection: View {
+  // 2) Use @AppStorage in your app, pointed at the same App Group
+  @AppStorage(
+    "selectedQuoteIndex",
+    store: UserDefaults(suiteName: "group.com.yourdomain.widgetkitexploration")
+  ) private var selectedQuoteIndex = 0
+
+  var body: some View {
+    Section("Tap a Quote to Update Widget") {
+      ForEach(sampleQuotes.indices, id: \.self) { i in
+        QuoteRow(
+          text: sampleQuotes[i],
+          isSelected: (i == selectedQuoteIndex)
+        ) {
+          // 3) On tap: write the new index, then reload the widget
+          selectedQuoteIndex = i
+          WidgetCenter.shared.reloadTimelines(ofKind: "WidgetKitExplorationWidget")
+        }
+      }
+    }
+  }
+}
+
+// MARK: – A single row in our picker
+
+private struct QuoteRow: View {
+  let text: String
+  let isSelected: Bool
+  let onSelect: () -> Void
+
+  var body: some View {
+    Button(action: onSelect) {
+      HStack {
+        Text(text)
+          .lineLimit(1)
+        Spacer()
+        if isSelected {
+          Image(systemName: "checkmark")
+        }
+      }
+      .padding(.vertical, 4)
+      .contentShape(Rectangle())
+    }
+    .buttonStyle(.plain)
+  }
+}
+
+// MARK: – Preview
+
 #Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+  ContentView()
 }
