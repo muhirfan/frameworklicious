@@ -7,55 +7,70 @@
 
 import SwiftUI
 import SwiftData
+import CoreML
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @State private var ageText = ""
+    @State private var incomeText = ""
+    @State private var resultText = ""
+
+    private let model: WillBuyClassifier_1 = {
+        let config = MLModelConfiguration()
+        return try! WillBuyClassifier_1(configuration: config)
+    }()
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
+        VStack(spacing: 24) {
+            Text("WillBuy Demo")
+                .font(.largeTitle)
+                .padding(.top)
+
+            Group {
+                TextField("Age", text: $ageText)
+                    .keyboardType(.numberPad)
+                TextField("Income", text: $incomeText)
+                    .keyboardType(.numberPad)
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .padding(.horizontal)
+
+            Button("Predict") {
+                makePrediction()
             }
-        } detail: {
-            Text("Select an item")
+            .buttonStyle(.borderedProminent)
+
+            Text(resultText)
+                .font(.title2)
+                .padding(.top)
+
+            Spacer()
         }
+        .padding()
     }
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
+    private func makePrediction() {
+        guard
+            let age = Double(ageText),
+            let income = Double(incomeText)
+        else {
+            resultText = "⚠️ Enter valid numbers"
+            return
         }
-    }
 
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
+        do {
+            let input = WillBuyClassifier_1Input(age: Int64(age), income: Int64(income))
+            let output = try model.prediction(input: input)
+            resultText = (output.willBuy == "yes")
+                ? "✅ Likely to buy"
+                : "❌ Unlikely to buy"
+        } catch {
+            resultText = "❌ Error: \(error.localizedDescription)"
         }
     }
 }
 
-#Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
