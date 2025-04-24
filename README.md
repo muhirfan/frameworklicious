@@ -10,6 +10,36 @@ Instead of writing separate integrations (like SiriKit, widget APIs, Spotlight i
 
 ---
 
+## How App Intents Actually Work (Non-Technical)
+
+Think of **App Intents** like giving your app superpowers — so it can talk to Siri, show up in Spotlight search, or work with the Shortcuts app.
+
+Here’s a real-world comparison to help you understand:
+
+> Imagine your app is a restaurant.  
+> App Intents are like putting items from your menu into a **universal food delivery app** (like DoorDash).  
+> Now, customers (users) can:
+> - Search for your dish (in Spotlight or Siri)
+> - Ask Siri to "Order sushi from [Your App]"
+> - Add it to a routine, like "When I get home, order dinner."
+
+All you do as a developer is:
+- 📋 Describe what your app can do (Intents)
+- 🧑‍🍳 Explain what options the user can pick (Parameters)
+- 🧭 Let Apple handle the rest (UI, voice, automation)
+
+### So what happens when someone uses your shortcut?
+1. The system finds your Intent (like "Change background color").
+2. It asks the user for any needed info ("What color?").
+3. It runs the logic you wrote.
+4. (Optional) It can open your app to show the result.
+
+This means **anyone**, even non-coders, can automate your app — just by using natural language or tapping a Shortcut!
+
+---
+
+---
+
 ##  How It Works
 
 ### 1. Define an Intent
