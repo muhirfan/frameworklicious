@@ -102,15 +102,6 @@ Great for logging events or hands-free data capture.
 
 ---
 
-### 3. Movie Tracker (Advanced)
-
-- **Entities:** `MovieItem` (conforms to `AppEntity`)
-- **Enums:** `MovieRating` (AppEnum: “Good” / “Bad” / etc.)
-- **Intent:** `MovieRatingIntent(MovieItem, MovieRating)`
-- **Shortcuts:** Add Movie, Add Rating via `AppShortcutsProvider`
-
----
-
 ##  Official Resources
 
 - [App Intents Reference](https://developer.apple.com/documentation/appintents)
