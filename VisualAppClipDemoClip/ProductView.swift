@@ -9,38 +9,36 @@ import Foundation
 import SwiftUI
 
 struct ProductView: View {
+    var product: Product
+
     var body: some View {
+        let openURL = Environment(\.openURL).wrappedValue
+
         VStack(spacing: 20) {
-            Image(systemName: "iphone.gen3")
+            Image(systemName: product.imageName)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 200, height: 200)
                 .padding()
-            
-            Text("Introducing the iPhone Future")
+
+            Text(product.name)
                 .font(.title)
                 .fontWeight(.bold)
-            
-            Text("Experience the future of mobile technology, now in the palm of your hand.")
+
+            Text(product.description)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
-            
-            Button(action: {
-                print("Pretend to buy or open full app!")
-            }) {
-                Text("Buy Now")
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+
+            Button("Open Full App") {
+                if let url = URL(string: "myappclipdemo://product?id=\(product.id)") {
+                    openURL(url)
+                }
             }
-            .padding(.horizontal)
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(10)
         }
         .padding()
     }
-}
-
-#Preview {
-    ProductView()
 }

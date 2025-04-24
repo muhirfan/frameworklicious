@@ -10,23 +10,23 @@ import SwiftData
 
 @main
 struct VisualAppClipDemoApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    @State private var launchedProductID: String? = nil
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Group {
+                if let id = launchedProductID, let product = sampleProducts[id] {
+                    ProductView(product: product)
+                } else {
+                    Text("Welcome to the full app!")
+                }
+            }
+            .onOpenURL { url in
+                if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+                   let id = components.queryItems?.first(where: { $0.name == "id" })?.value {
+                    launchedProductID = id
+                }
+            }
         }
-        .modelContainer(sharedModelContainer)
     }
 }

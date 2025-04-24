@@ -82,7 +82,15 @@
 		808F397F2DB9E9720019B6F6 /* Exceptions for "VisualAppClipDemoClip" folder in "VisualAppClipDemo" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Product.swift,
 				ProductView.swift,
+			);
+			target = 808F39152DB9E90F0019B6F6 /* VisualAppClipDemo */;
+		};
+		808F39862DB9EC230019B6F6 /* Exceptions for "VisualAppClipDemo" folder in "VisualAppClipDemo" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
 			);
 			target = 808F39152DB9E90F0019B6F6 /* VisualAppClipDemo */;
 		};
@@ -91,6 +99,9 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		808F39182DB9E90F0019B6F6 /* VisualAppClipDemo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				808F39862DB9EC230019B6F6 /* Exceptions for "VisualAppClipDemo" folder in "VisualAppClipDemo" target */,
+			);
 			path = VisualAppClipDemo;
 			sourceTree = "<group>";
 		};
@@ -645,6 +656,7 @@
 				DEVELOPMENT_TEAM = Z8PS8WLYZ6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VisualAppClipDemo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -674,6 +686,7 @@
 				DEVELOPMENT_TEAM = Z8PS8WLYZ6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VisualAppClipDemo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

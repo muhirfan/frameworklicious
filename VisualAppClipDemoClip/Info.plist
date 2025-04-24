@@ -10,6 +10,6 @@
 		<false/>
 	</dict>
 	<key>NSUserActivityTypes</key>
-	<string>com.company.visualappclip.productview</string>
+	<string>com.yourcompany.visualappclip.productview</string>
 </dict>
 </plist>
