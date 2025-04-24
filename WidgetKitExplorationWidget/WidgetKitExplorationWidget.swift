@@ -5,6 +5,13 @@
 //  Created by Kaushik Manian on 24/4/25.
 //
 
+//
+//  WidgetKitExplorationWidget.swift
+//  WidgetKitExplorationWidget
+//
+//  Created by Kaushik Manian on 24/4/25.
+//
+
 import WidgetKit
 import SwiftUI
 
@@ -12,8 +19,7 @@ let sampleQuotes = [
   "Stay hungry, stay foolish.",
   "The only limit to our tomorrow is our doubts of today.",
   "Innovation distinguishes between a leader and a follower.",
-  "Code is like humor. When you have to explain it, it’s bad.",
-  "In theory, there is no difference between theory and practice."
+  "Code is like humor. When you have to explain it, it’s bad."
 ]
 
 struct SimpleEntry: TimelineEntry {
@@ -21,24 +27,16 @@ struct SimpleEntry: TimelineEntry {
 }
 
 struct Provider: TimelineProvider {
-  func placeholder(in context: Context) -> SimpleEntry {
-    SimpleEntry(date: Date())
-  }
-
+  func placeholder(in context: Context) -> SimpleEntry { .init(date: Date()) }
   func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> Void) {
-    completion(SimpleEntry(date: Date()))
+    completion(.init(date: Date()))
   }
-
   func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> Void) {
-    var entries: [SimpleEntry] = []
     let now = Date()
-    // ➋ build 24 hourly entries
-    for hourOffset in 0..<24 {
-      let entryDate = Calendar.current
-        .date(byAdding: .hour, value: hourOffset, to: now)!
-      entries.append(SimpleEntry(date: entryDate))
+    let entries = (0..<24).map {
+      SimpleEntry(date: Calendar.current.date(byAdding: .hour, value: $0, to: now)!)
     }
-    completion(Timeline(entries: entries, policy: .atEnd))
+    completion(.init(entries: entries, policy: .atEnd))
   }
 }
 
@@ -48,6 +46,8 @@ struct WidgetKitExplorationWidgetEntryView: View {
 
   var body: some View {
     switch family {
+      
+    // Home‐screen small
     case .systemSmall:
       VStack(spacing: 8) {
         Text(sampleQuotes.randomElement()!)
@@ -55,13 +55,17 @@ struct WidgetKitExplorationWidgetEntryView: View {
           .multilineTextAlignment(.center)
           .padding(.horizontal, 8)
         if #available(iOS 17.0, *) {
-          Button("🔄") {
+          Button {
             WidgetCenter.shared.reloadTimelines(ofKind: "WidgetKitExplorationWidget")
+          } label: {
+            Image(systemName: "arrow.clockwise.circle.fill")
           }
-          .buttonStyle(.plain)
+          .buttonStyle(.bordered)
         }
       }
+      .padding()
 
+    // Home‐screen medium
     case .systemMedium:
       VStack(alignment: .leading, spacing: 8) {
         HStack {
@@ -74,30 +78,42 @@ struct WidgetKitExplorationWidgetEntryView: View {
           .font(.title3)
           .multilineTextAlignment(.leading)
         if #available(iOS 17.0, *) {
-          Button("🔄") {
+          Button {
             WidgetCenter.shared.reloadTimelines(ofKind: "WidgetKitExplorationWidget")
+          } label: {
+            Image(systemName: "arrow.clockwise")
           }
-          .buttonStyle(.plain)
+          .buttonStyle(.bordered)
         }
       }
       .padding(12)
 
-    default:
+    // Lock‐screen rectangular (below the clock)
+    case .accessoryRectangular:
+      HStack {
+        Image(systemName: "quote.bubble")
+        Text(sampleQuotes.randomElement()!)
+          .font(.caption2)
+      }
+      .padding(6)
+
+    // Lock‐screen inline (next to the date)
+    case .accessoryInline:
       Text(sampleQuotes.randomElement()!)
+        .font(.caption2)
+
+    // Lock‐screen circular (round)
+    case .accessoryCircular:
+      Text("“”")
+        .font(.title3)
+        .multilineTextAlignment(.center)
+
+    // Catch any future new families
+    @unknown default:
+      Text(sampleQuotes.randomElement()!)
+        .font(.caption2)
+        .multilineTextAlignment(.center)
     }
   }
 }
 
-//@main
-//struct WidgetKitExplorationWidget: Widget {
-//  let kind: String = "WidgetKitExplorationWidget"
-//
-//  var body: some WidgetConfiguration {
-//    StaticConfiguration(kind: kind, provider: Provider()) { entry in
-//      WidgetKitExplorationWidgetEntryView(entry: entry)
-//    }
-//    .configurationDisplayName("Quote of the Hour")
-//    .description("Shows a fresh quote every hour.")
-//    .supportedFamilies([.systemSmall, .systemMedium])
-//  }
-//}

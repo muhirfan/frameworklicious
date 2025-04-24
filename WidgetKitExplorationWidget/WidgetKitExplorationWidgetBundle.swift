@@ -25,12 +25,18 @@ struct WidgetKitExplorationWidget: Widget {
   let kind: String = "WidgetKitExplorationWidget"
 
   var body: some WidgetConfiguration {
-    StaticConfiguration(kind: kind, provider: Provider()) { entry in
+    StaticConfiguration(kind: kind,
+                        provider: Provider()) { entry in
       WidgetKitExplorationWidgetEntryView(entry: entry)
     }
     .configurationDisplayName("Quote of the Hour")
-    .description("Shows a fresh quote every hour.")
-    .supportedFamilies([.systemSmall, .systemMedium])
+    .description("A fresh random quote, now on your Home Screen & Lock Screen.")
+    .supportedFamilies([
+      .systemSmall,
+      .systemMedium,
+      .accessoryCircular,
+      .accessoryRectangular,
+      .accessoryInline
+    ])
   }
 }
-
