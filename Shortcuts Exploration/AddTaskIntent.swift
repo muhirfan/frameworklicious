@@ -18,12 +18,9 @@ struct AddTaskIntent: AppIntent {
     var title: String
 
     func perform() async throws -> some IntentResult & ReturnsValue<String> & ProvidesDialog {
-        // append into UserDefaults
         var tasks = UserDefaults.standard.stringArray(forKey: "tasks") ?? []
         tasks.append(title)
         UserDefaults.standard.set(tasks, forKey: "tasks")
-
-        // return with a spoken/display dialog
         return .result(
             value: title,
             dialog: IntentDialog("Added task: \(title)")

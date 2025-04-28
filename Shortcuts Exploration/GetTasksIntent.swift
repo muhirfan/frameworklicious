@@ -18,7 +18,6 @@ struct GetTasksIntent: AppIntent {
         let message = tasks.isEmpty
             ? "No tasks found."
             : tasks.joined(separator: ", ")
-
         return .result(
             value: tasks,
             dialog: IntentDialog(stringLiteral: message)
