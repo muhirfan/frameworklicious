@@ -9,51 +9,65 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @StateObject private var mgr = CloudKitManager.shared
+    @State private var newTitle = ""
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+        NavigationView {
+            VStack(spacing: 0) {
+                // Input bar
+                HStack {
+                    TextField("New task…", text: $newTitle)
+                        .textFieldStyle(.roundedBorder)
+                    Button {
+                        add()
                     } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        Image(systemName: "plus.circle.fill")
+                            .font(.title2)
                     }
+                    .disabled(newTitle.trimmingCharacters(in: .whitespaces).isEmpty)
                 }
-                .onDelete(perform: deleteItems)
+                .padding(.horizontal)
+
+                // To-Do list
+                List {
+                    ForEach(mgr.items) { item in
+                        HStack {
+                            Button {
+                                mgr.toggle(item: item)
+                            } label: {
+                                Image(systemName:
+                                    item.isComplete == 1
+                                    ? "checkmark.circle.fill"
+                                    : "circle")
+                            }
+                            Text(item.title)
+                                .strikethrough(item.isComplete == 1)
+                            Spacer()
+                        }
+                    }
+                    .onDelete(perform: delete)
+                }
             }
+            .navigationTitle("CloudKit To-Do")
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
+                Button("Refresh") { mgr.fetchItems() }
             }
         }
+        .onAppear { mgr.fetchItems() }
+    }
+
+    private func add() {
+        let title = newTitle.trimmingCharacters(in: .whitespaces)
+        mgr.addItem(title: title)
+        newTitle = ""
+    }
+
+    private func delete(at offsets: IndexSet) {
+        offsets.map { mgr.items[$0] }.forEach(mgr.delete)
     }
 }
+
 
 #Preview {
     ContentView()
