@@ -24,5 +24,11 @@ struct IntentProvider: AppShortcutsProvider {
             shortTitle: "Get Tasks",
             systemImageName: "list.bullet"
         )
+        AppShortcut(
+            intent: ClearTasksIntent(),
+            phrases: ["Clear all tasks"],
+            shortTitle: "Clear Tasks",
+            systemImageName: "trash.fill"
+        )
     }
 }

@@ -21,6 +21,7 @@ struct AddTaskIntent: AppIntent {
         var tasks = UserDefaults.standard.stringArray(forKey: "tasks") ?? []
         tasks.append(title)
         UserDefaults.standard.set(tasks, forKey: "tasks")
+
         return .result(
             value: title,
             dialog: IntentDialog("Added task: \(title)")

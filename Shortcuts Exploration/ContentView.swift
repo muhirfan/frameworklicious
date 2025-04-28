@@ -19,9 +19,13 @@ struct ContentView: View {
                 .textFieldStyle(.roundedBorder)
                 .padding(.horizontal)
 
-            // Single “Add” button only
-            Button("Add") { performAdd() }
-                .buttonStyle(.borderedProminent)
+            HStack(spacing: 15) {
+                Button("Add") { performAdd() }
+                    .buttonStyle(.borderedProminent)
+
+                Button("Clear All") { performClearAll() }
+                    .buttonStyle(.bordered)
+            }
 
             Text(status)
                 .font(.caption)
@@ -33,16 +37,12 @@ struct ContentView: View {
         }
         .padding()
         .onAppear(perform: loadTasks)
-        // Refresh whenever App goes background↔foreground
         .onChange(of: UIApplication.shared.applicationState) { _ in
             loadTasks()
-            status = "Tap “Add” or ask Siri"
+            status = "Tap “Add” or place in shortcuts"
         }
-        // Auto-refresh whenever UserDefaults changes
         .onReceive(
-            NotificationCenter.default.publisher(
-                for: UserDefaults.didChangeNotification
-            )
+            NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification)
         ) { _ in
             loadTasks()
         }
@@ -62,7 +62,22 @@ struct ContentView: View {
                 let res = try await intent.perform()
                 status = "Added: \(res.value ?? newTitle)"
                 newTitle = ""
-                // loadTasks() will be called automatically by onReceive
+                // loadTasks() runs automatically via onReceive
+            } catch {
+                status = "Error: \(error.localizedDescription)"
+            }
+        }
+    }
+
+    private func performClearAll() {
+        let intent = ClearTasksIntent()
+
+        Task {
+            do {
+                _ = try await intent.perform()
+                status = "All tasks cleared"
+                newTitle = ""
+                // loadTasks() runs automatically via onReceive
             } catch {
                 status = "Error: \(error.localizedDescription)"
             }
