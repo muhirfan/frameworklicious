@@ -9,16 +9,16 @@ import Foundation
 import CloudKit
 import Combine
 
-/// Manages ToDoItem records in CloudKit.
+
 final class CloudKitManager: ObservableObject {
     static let shared = CloudKitManager()
     private let db = CKContainer.default().privateCloudDatabase
 
     @Published private(set) var items: [ToDoItem] = []
 
-    private init() { }
+    private init() {}
 
-    /// Fetch
+    /// Read:
     func fetchItems() {
         let query = CKQuery(recordType: "ToDoItem",
                             predicate: NSPredicate(value: true))
@@ -27,22 +27,18 @@ final class CloudKitManager: ObservableObject {
         let op = CKQueryOperation(query: query)
         op.resultsLimit = CKQueryOperation.maximumResults
 
-        op.recordMatchedBlock = { recordID, result in
-            switch result {
-            case .success(let record):
+        op.recordMatchedBlock = { _, result in
+            if case .success(let record) = result {
                 fetched.append(ToDoItem(record: record))
-            case .failure(let error):
-                print("CloudKit record match error for \(recordID):", error)
             }
         }
 
         op.queryResultBlock = { [weak self] result in
             DispatchQueue.main.async {
-                switch result {
-                case .success:
+                if case .success = result {
                     self?.items = fetched
-                case .failure(let error):
-                    print("CloudKit fetch error:", error)
+                } else if case .failure(let error) = result {
+                    print("❌ fetch error:", error)
                 }
             }
         }
@@ -50,35 +46,51 @@ final class CloudKitManager: ObservableObject {
         db.add(op)
     }
 
-
-
     /// Create
     func addItem(title: String) {
         let record = CKRecord(recordType: "ToDoItem")
         record["title"] = title as NSString
         record["isComplete"] = 0 as NSNumber
-        db.save(record) { rec, err in
+
+        db.save(record) { [weak self] rec, err in
             DispatchQueue.main.async {
                 if let rec = rec {
-                    self.items.append(ToDoItem(record: rec))
+                    self?.items.append(ToDoItem(record: rec))
                 } else {
-                    print("CloudKit save error:", err ?? "none")
+                    print("❌ save error:", err ?? "unknown")
                 }
             }
         }
     }
 
-    /// Toggle the isComplete
+    /// Update
     func toggle(item: ToDoItem) {
         let newValue = item.isComplete == 0 ? 1 : 0
         item.record["isComplete"] = newValue as NSNumber
-        db.save(item.record) { rec, err in
+
+        db.save(item.record) { [weak self] rec, err in
             DispatchQueue.main.async {
                 if let rec = rec,
-                   let idx = self.items.firstIndex(where: { $0.id == item.id }) {
-                    self.items[idx] = ToDoItem(record: rec)
+                   let idx = self?.items.firstIndex(where: { $0.id == item.id }) {
+                    self?.items[idx] = ToDoItem(record: rec)
                 } else {
-                    print("CloudKit update error:", err ?? "none")
+                    print("❌ update error:", err ?? "unknown")
+                }
+            }
+        }
+    }
+
+    /// Update
+    func update(item: ToDoItem, newTitle: String) {
+        item.record["title"] = newTitle as NSString
+
+        db.save(item.record) { [weak self] rec, err in
+            DispatchQueue.main.async {
+                if let rec = rec,
+                   let idx = self?.items.firstIndex(where: { $0.id == item.id }) {
+                    self?.items[idx] = ToDoItem(record: rec)
+                } else {
+                    print("❌ title-edit error:", err ?? "unknown")
                 }
             }
         }
@@ -86,12 +98,12 @@ final class CloudKitManager: ObservableObject {
 
     /// Delete
     func delete(item: ToDoItem) {
-        db.delete(withRecordID: item.record.recordID) { recID, err in
+        db.delete(withRecordID: item.record.recordID) { [weak self] recID, err in
             DispatchQueue.main.async {
                 if recID != nil {
-                    self.items.removeAll { $0.id == item.id }
+                    self?.items.removeAll { $0.id == item.id }
                 } else {
-                    print("CloudKit delete error:", err ?? "none")
+                    print("❌ delete error:", err ?? "unknown")
                 }
             }
         }
