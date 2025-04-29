@@ -18,45 +18,42 @@ struct MapView: UIViewRepresentable {
 
     @Binding var mapType: MKMapType
     @Binding var showTraffic: Bool
-    @Binding var showRadius: Bool
     var userLocation: CLLocationCoordinate2D?
     var onLongPress: (CLLocationCoordinate2D) -> Void
 
     func makeUIView(context: Context) -> MKMapView {
         let map = MKMapView()
         map.delegate = context.coordinator
+        map.mapType = mapType
+        map.showsTraffic = showTraffic
         map.showsUserLocation = showsUserLocation
         map.showsScale = true
         map.showsCompass = true
-        map.mapType = mapType
-        map.showsTraffic = showTraffic
+        map.setRegion(region, animated: false)
 
         let lp = UILongPressGestureRecognizer(
             target: context.coordinator,
             action: #selector(Coordinator.handleLongPress(_:))
         )
         map.addGestureRecognizer(lp)
-
         return map
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        uiView.region = region
-        uiView.mapType = mapType
-        uiView.showsTraffic = showTraffic
-        uiView.showsUserLocation = showsUserLocation
+        if uiView.mapType != mapType { uiView.mapType = mapType }
+        if uiView.showsTraffic != showTraffic { uiView.showsTraffic = showTraffic }
+        if uiView.showsUserLocation != showsUserLocation { uiView.showsUserLocation = showsUserLocation }
 
-        // Annotations
         uiView.removeAnnotations(uiView.annotations)
         uiView.addAnnotations(annotations)
 
-        // Overlays
         uiView.removeOverlays(uiView.overlays)
         if let r = route {
             uiView.addOverlay(r.polyline)
         }
-        if showRadius, let loc = userLocation {
-            uiView.addOverlay(MKCircle(center: loc, radius: 500))
+
+        if !context.coordinator.isRegionUpdating {
+            uiView.setRegion(region, animated: true)
         }
     }
 
@@ -64,30 +61,30 @@ struct MapView: UIViewRepresentable {
 
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: MapView
+        var isRegionUpdating = false
+
         init(_ parent: MapView) { self.parent = parent }
 
         @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
             guard gesture.state == .began,
-                  let mapView = gesture.view as? MKMapView
-            else { return }
-            let pt = gesture.location(in: mapView)
-            let coord = mapView.convert(pt, toCoordinateFrom: mapView)
+                  let map = gesture.view as? MKMapView else { return }
+            let pt = gesture.location(in: map)
+            let coord = map.convert(pt, toCoordinateFrom: map)
             parent.onLongPress(coord)
+        }
+
+        func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+            isRegionUpdating = true
+            parent.region = mapView.region
+            isRegionUpdating = false
         }
 
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
             if let poly = overlay as? MKPolyline {
-                let r = MKPolylineRenderer(polyline: poly)
-                r.strokeColor = .blue
-                r.lineWidth = 4
-                return r
-            }
-            if let circle = overlay as? MKCircle {
-                let r = MKCircleRenderer(circle: circle)
-                r.strokeColor = .red
-                r.lineWidth = 2
-                r.fillColor = UIColor.red.withAlphaComponent(0.1)
-                return r
+                let renderer = MKPolylineRenderer(polyline: poly)
+                renderer.strokeColor = .systemBlue
+                renderer.lineWidth = 8 
+                return renderer
             }
             return MKOverlayRenderer(overlay: overlay)
         }

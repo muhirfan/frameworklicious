@@ -6,8 +6,8 @@
 //
 
 import SwiftUI
-import SwiftUI
 import MapKit
+import CoreLocation
 
 struct ContentView: View {
     @StateObject private var locationManager = LocationManager()
@@ -21,23 +21,27 @@ struct ContentView: View {
         let gg = MKPointAnnotation()
         gg.title = "Golden Gate Bridge"
         gg.coordinate = CLLocationCoordinate2D(latitude: 37.8199, longitude: -122.4783)
+
         let al = MKPointAnnotation()
         al.title = "Alcatraz Island"
         al.coordinate = CLLocationCoordinate2D(latitude: 37.8267, longitude: -122.4230)
+
         return [gg, al]
     }()
 
     @State private var route: MKRoute?
     @State private var searchText = ""
     @State private var poiQuery = ""
-
     @State private var mapType: MKMapType = .standard
     @State private var showTraffic = false
-    @State private var showRadius = false
+
+    /// Only recenter once when live location arrives
+    @State private var didCenterOnUser = false
 
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
+                // ───────── Map ─────────
                 MapView(
                     region: $region,
                     annotations: annotations,
@@ -45,18 +49,16 @@ struct ContentView: View {
                     showsUserLocation: true,
                     mapType: $mapType,
                     showTraffic: $showTraffic,
-                    showRadius: $showRadius,
-                    userLocation: locationManager.location?.coordinate,
-                    onLongPress: { coord in
-                        let pin = MKPointAnnotation()
-                        pin.coordinate = coord
-                        pin.title = "Dropped Pin"
-                        annotations.append(pin)
-                    }
-                )
+                    userLocation: locationManager.location?.coordinate
+                ) { coord in
+                    let pin = MKPointAnnotation()
+                    pin.coordinate = coord
+                    pin.title = "Dropped Pin"
+                    annotations.append(pin)
+                }
                 .frame(height: 350)
 
-                // Controls
+                // ───────── Controls ─────────
                 VStack(spacing: 8) {
                     HStack {
                         TextField("Geocode address", text: $searchText)
@@ -66,7 +68,7 @@ struct ContentView: View {
                     }
 
                     HStack {
-                        TextField("Search POI", text: $poiQuery)
+                        TextField("Search POI (e.g. café)", text: $poiQuery)
                             .textFieldStyle(.roundedBorder)
                         Button("Search") { searchPOI() }
                             .disabled(poiQuery.isEmpty)
@@ -79,12 +81,20 @@ struct ContentView: View {
                     }
                     .pickerStyle(.segmented)
 
-                    HStack {
-                        Toggle("Traffic", isOn: $showTraffic)
-                        Toggle("Show Radius", isOn: $showRadius)
-                    }
+                    Toggle("Traffic", isOn: $showTraffic)
                 }
                 .padding()
+
+                // ───────── Help Text ─────────
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Help").font(.headline)
+                    Text("• POI = Point of Interest (cafés, parks, shops).")
+                    Text("• Geocode Address: type an address to drop a pin there.")
+                    Text("• Route: goes from your live location to the nearest pin.")
+                }
+                .font(.footnote)
+                .padding(.horizontal)
+                .padding(.bottom)
 
                 Spacer()
             }
@@ -98,11 +108,14 @@ struct ContentView: View {
                 }
             }
         }
-        .onAppear {
-            // center on user if available
-            if let loc = locationManager.location {
-                region.center = loc.coordinate
-            }
+        // Recenter on live location **once** when it arrives
+        .onChange(of: locationManager.location) { newLoc in
+            guard let loc = newLoc, !didCenterOnUser else { return }
+            region = MKCoordinateRegion(
+                center: loc.coordinate,
+                span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+            )
+            didCenterOnUser = true
         }
     }
 
@@ -134,9 +147,17 @@ struct ContentView: View {
     }
 
     private func makeRoute() {
-        guard annotations.count >= 2 else { return }
-        let src = MKMapItem(placemark: MKPlacemark(coordinate: annotations[0].coordinate))
-        let dst = MKMapItem(placemark: MKPlacemark(coordinate: annotations[1].coordinate))
+        guard let userLoc = locationManager.location else { return }
+        // Find nearest annotation to the user
+        guard let nearest = annotations.min(by: { a, b in
+            let la = CLLocation(latitude: a.coordinate.latitude, longitude: a.coordinate.longitude)
+            let lb = CLLocation(latitude: b.coordinate.latitude, longitude: b.coordinate.longitude)
+            return la.distance(from: userLoc) < lb.distance(from: userLoc)
+        }) else { return }
+
+        let src = MKMapItem(placemark: MKPlacemark(coordinate: userLoc.coordinate))
+        let dst = MKMapItem(placemark: MKPlacemark(coordinate: nearest.coordinate))
+
         let req = MKDirections.Request()
         req.source = src
         req.destination = dst
@@ -145,21 +166,23 @@ struct ContentView: View {
         MKDirections(request: req).calculate { resp, _ in
             guard let r = resp?.routes.first else { return }
             route = r
+            // Zoom to show entire route
+            region = MKCoordinateRegion(r.polyline.boundingMapRect)
         }
     }
 
+    /// Clears all pins back to the two defaults and removes the route
     private func resetAll() {
+        annotations = {
+            let gg = MKPointAnnotation()
+            gg.title = "Golden Gate Bridge"
+            gg.coordinate = CLLocationCoordinate2D(latitude: 37.8199, longitude: -122.4783)
+            let al = MKPointAnnotation()
+            al.title = "Alcatraz Island"
+            al.coordinate = CLLocationCoordinate2D(latitude: 37.8267, longitude: -122.4230)
+            return [gg, al]
+        }()
         route = nil
-        annotations = Array(annotations.prefix(2))
-        region = MKCoordinateRegion(
-            center: annotations[0].coordinate,
-            span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-        )
-        searchText = ""
-        poiQuery = ""
-        mapType = .standard
-        showTraffic = false
-        showRadius = false
     }
 }
 
