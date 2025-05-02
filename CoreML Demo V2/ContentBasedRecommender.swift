@@ -7,63 +7,78 @@
 
 import Foundation
 
-/// A very basic cosine-similarity recommender based on movie genres.
+/// Content-based recommender using cosine similarity on one-hot genre vectors.
 struct ContentBasedRecommender {
     private let movieVectors: [Int: [Double]]
     private let titles: [Int: String]
 
     init(moviesCSV url: URL) throws {
-        let text = try String(contentsOf: url, encoding: .utf8)
+        let text  = try String(contentsOf: url, encoding: .utf8)
         let lines = text.components(separatedBy: "\n").dropFirst()
 
+        // 1) Gather all genres
         var genreSet = Set<String>()
-        var raw: [(id: Int, title: String, genres: [String])] = []
+        var rawData = [(id: Int, title: String, genres: [String])]()
         for line in lines where !line.isEmpty {
-            let cols = line.components(separatedBy: ",")
-            guard cols.count >= 3,
-                  let id = Int(cols[0]) else { continue }
-            let title  = cols[1]
-            let genres = cols[2].components(separatedBy: "|")
-            raw.append((id, title, genres))
+            let parts = line.components(separatedBy: ",")
+            guard parts.count >= 3, let id = Int(parts[0]) else { continue }
+            let title  = parts[1]
+            let genres = parts[2].components(separatedBy: "|")
+            rawData.append((id, title, genres))
             genres.forEach { genreSet.insert($0) }
         }
 
-        let allGenres   = Array(genreSet).sorted()
-        let genreIndex  = Dictionary(uniqueKeysWithValues:
+        // 2) Build one-hot index
+        let allGenres  = Array(genreSet).sorted()
+        let genreIndex = Dictionary(uniqueKeysWithValues:
             allGenres.enumerated().map { ($1, $0) }
         )
 
-        var vectors = [Int: [Double]]()
+        // 3) Encode each movie
+        var vectors   = [Int: [Double]]()
         var titlesMap = [Int: String]()
-        for (id, title, genres) in raw {
-            var v = Array(repeating: 0.0, count: allGenres.count)
-            for g in genres {
-                if let idx = genreIndex[g] { v[idx] = 1.0 }
+        for entry in rawData {
+            var vec = Array(repeating: 0.0, count: allGenres.count)
+            for g in entry.genres {
+                if let idx = genreIndex[g] {
+                    vec[idx] = 1.0
+                }
             }
-            vectors[id]     = v
-            titlesMap[id]   = title
+            vectors[entry.id]   = vec
+            titlesMap[entry.id] = entry.title
         }
 
         self.movieVectors = vectors
         self.titles       = titlesMap
     }
 
+    /// Returns the top-K titles by descending cosine similarity.
     func recommend(similarTo movieId: Int, topK: Int = 5) -> [String] {
-        guard let target = movieVectors[movieId] else { return [] }
-        let targetNorm = sqrt(target.map { $0*$0 }.reduce(0, +))
+        similarityScores(similarTo: movieId, topK: topK).map { $0.title }
+    }
 
-        let scores = movieVectors.compactMap { (id, vector) -> (String, Double)? in
-            guard id != movieId else { return nil }
-            let dot  = zip(target, vector).map(*).reduce(0, +)
-            let norm = sqrt(vector.map { $0*$0 }.reduce(0, +))
-            guard norm > 0 && targetNorm > 0 else { return nil }
-            let cos = dot / (norm * targetNorm)
-            return (titles[id]!, cos)
+    /// Returns raw (title, cosineScore) pairs so you can inspect or log them.
+    func similarityScores(similarTo movieId: Int, topK: Int = 5)
+      -> [(title: String, score: Double)]
+    {
+        guard let target = movieVectors[movieId] else { return [] }
+        let tNorm = sqrt(target.map { $0 * $0 }.reduce(0, +))
+
+        var scored = [(String, Double)]()
+        for (id, vec) in movieVectors {
+            guard id != movieId else { continue }
+            let dot   = zip(target, vec).map(*).reduce(0, +)
+            let vNorm = sqrt(vec.map { $0 * $0 }.reduce(0, +))
+            guard tNorm > 0, vNorm > 0 else { continue }
+            let cos = dot / (tNorm * vNorm)
+            if let title = titles[id] {
+                scored.append((title, cos))
+            }
         }
 
-        return scores
+        return scored
             .sorted(by: { $0.1 > $1.1 })
             .prefix(topK)
-            .map { $0.0 }
+            .map { ($0.0, $0.1) }
     }
 }
