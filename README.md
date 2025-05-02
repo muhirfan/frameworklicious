@@ -41,11 +41,11 @@ Content-based filtering recommends movies based on genre similarity.
 
 ### Feature Encoding
 
-- Builds a **one-hot vector** \( g_i \in \{0, 1\}^D \) for each movie, where each position corresponds to a genre.
+- Builds a **one-hot vector** for each movie, where each position corresponds to a genre.
 
 ### Similarity Computation
 
-For a target movie \( g_1 \), the system computes **cosine similarity** with every other movie:
+For a target movie , the system computes **cosine similarity** with every other movie:
 
 ![Screenshot 2025-05-02 at 3 20 05 PM](https://github.com/user-attachments/assets/64cc0b12-5f06-47c5-80de-2003ec277d84)
 
