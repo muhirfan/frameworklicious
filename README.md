@@ -72,3 +72,38 @@ Just a fast, friendly way to keep your favorite quotes in view — always.
 
 Widgets are more than decoration — they’re your app’s **first impression**.  
 With WidgetKit and SwiftUI, you can create powerful, beautiful, and even **interactive widgets** that feel just like part of the system !
+
+---
+
+# Widgetsmith (Found in App Store)
+
+**Download**: [Widgetsmith on the App Store](https://apps.apple.com/us/app/widgetsmith/id1523682319?uo=2) – *Free*
+
+<img width="300" alt="Screenshot 2025-05-07 at 4 23 53 PM" src="https://github.com/user-attachments/assets/6b8caa41-f4e7-4a2f-855b-b865205b65c3" />
+
+---
+
+### Overview
+
+Widgetsmith lets you personalize your iOS Home Screen with highly customizable widgets that display photos, calendars, weather, reminders, and more—at a glance. Built entirely with SwiftUI and WidgetKit, it integrates tightly with iOS for a smooth, native widget experience right from the widget gallery.
+
+---
+
+### WidgetKit Integration
+
+- **SwiftUI-Based Widgets**: Uses the `Widget` protocol and `TimelineProvider` to build stateless, glanceable widgets that update on a customizable schedule.
+- **Multiple Widget Families**: Supports `.systemSmall`, `.systemMedium`, `.systemLarge`, and `.systemExtraLarge` (on iPad), with responsive layouts via `WidgetFamily`.
+- **Interactive Elements (iOS 17+)**: Enables tappable buttons and toggles using `Link` and `WidgetURL` APIs for deep-linking and in-widget actions.
+- **Intents for Customization**: Uses App Intents and `@AppStorage` to allow users to choose widget styles, data sources, or photo albums from the widget configuration UI.
+- **Timeline Updates**: Generates widget timelines with scheduled refreshes or manual updates using `WidgetCenter.shared.reloadTimelines(ofKind:)`.
+
+---
+
+### Key Features
+
+- **Photo Widgets**: Show single images, carousels, or cover-flow–style galleries with tap-through browsing support.
+- **Utility Widgets**: Display time, calendar events, reminders, and health data using customizable fonts, colors, and layouts.
+- **Themed Aesthetics**: Create visually cohesive Home Screens with custom fonts, colors, and background styles.
+- **Event Countdown**: Track time to birthdays, holidays, or personal milestones using flexible countdown widgets.
+- **Weather & Astronomy**: Include local weather, sunrise/sunset times, and moon phase data via the built-in engine or an external API.
+
