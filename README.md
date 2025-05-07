@@ -98,11 +98,42 @@ Returns the **top-K most similar movies**.
 
 ---
 
-## 📦 Additional Resources
+## Additional Resources
 
 - [Core ML Tools (Convert models)](https://coremltools.readme.io/)
 - [Machine Learning Overview](https://developer.apple.com/machine-learning/)
 - [Core ML Models Gallery](https://developer.apple.com/machine-learning/models/)
 
+---
 
+# Core ML Demo App (Found in App Store)
+
+**Download**: [AI Model Bench on the App Store](https://apps.apple.com/in/app/ai-model-bench/id6739974249?uo=2) – *Free*
+
+￼
+<img width="300" alt="Screenshot 2025-05-07 at 3 31 00 PM" src="https://github.com/user-attachments/assets/07b9957c-5a77-4827-b734-3dc52a282393" />
+
+---
+
+### Overview
+
+AI Model Bench is a free, on-device benchmarking tool for Core ML models. It allows you to import compiled `.mlmodel` files and run inference tests entirely on your device—no network required.
+
+---
+
+### Core ML Integration
+
+- **Model Loading**: Uses `MLModel(contentsOf:)` to instantiate Core ML models directly from files.
+- **Inference Timing**: Wraps `model.prediction(input:)` calls in timing logic to measure latency down to the millisecond.
+- **Hardware Acceleration**: Leverages CPU, GPU, and the Apple Neural Engine for fast, low-latency on-device inference.
+
+---
+
+### Key Features
+
+- **Import & Organize**: Drag-and-drop or use “Open In…” to add `.mlmodel` files and build a sortable model library.
+- **Custom Test Data**: Select images from your Photos; the app converts them to `CVPixelBuffer` or `MLFeatureProvider` format.
+- **Performance Metrics**: View real-time inference latency and confidence scores side-by-side.
+- **Comparison Logs**: Store and compare multiple test runs to spot outliers and optimize model performance.
+- **Ad-Supported**: Completely free with embedded AdMob banners—no paid upgrade required.
 
