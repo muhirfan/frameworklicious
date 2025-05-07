@@ -57,3 +57,32 @@ This project is a simple **Task Manager** that demonstrates:
 - An `AppShortcutsProvider` bundles these intents, making them automatically discoverable inside the **Shortcuts app**.
 
 ---
+
+# Shortcuts Sample App - Overcast (Found in App Store)
+
+**Download**: [Overcast on the App Store](https://apps.apple.com/us/app/overcast/id888422857?uo=2) – *Free*
+
+<img width="300" alt="Screenshot 2025-05-07 at 4 03 01 PM" src="https://github.com/user-attachments/assets/c0bee397-3d55-4d0f-b4a7-0cbe514df384" />
+
+---
+
+### Overview
+
+Overcast is a powerful, award-winning podcast player for iPhone, iPad, Apple Watch, and Mac. It offers advanced audio features—like Smart Speed® and Voice Boost®—while maintaining a clean, intuitive interface for discovering, subscribing to, and listening to podcasts on the go.
+
+---
+
+### Shortcuts Integration
+
+- **Built-in App Intents**: Supports “Play Podcast,” “Pause/Resume,” and “Open Playlist” as App Intents for automatic use in Shortcuts and Siri Suggestions.
+- **Siri Voice Control**: Trigger playback with voice commands like “Hey Siri, play Overcast” or “Hey Siri, play my Favorites playlist in Overcast.”
+- **Spotlight & Home Screen**: Shortcut actions appear in Spotlight and support one-tap Home Screen widgets.
+- **Parameter Support**: Actions accept input like podcast name, playlist ID, or episode URL for dynamic automation workflows.
+
+---
+
+### Key Features
+
+- **Smart Speed®**: Automatically shortens silences to save time without affecting audio quality.
+- **Voice Boost®**: Equalizes volume across episodes for clearer, more consistent playback.
+- **Custom Playlists**: Build and reorder playlists with smart filters like “Newest Unplayed” or “Favorites.”
