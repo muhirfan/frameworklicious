@@ -72,3 +72,36 @@ This demo shows how **easy** and **powerful** it can be to use Apple’s framewo
 - Work with real calendar data
 - Use native interfaces
 - Create a professional-feeling calendar tool — even as a beginner
+
+---
+
+# Calendars – Planner & Organizer (Found in App Store)
+
+**Download**: [Calendars on the App Store](https://apps.apple.com/us/app/calendars-planner-organizer/id608834326) – *Free*
+
+<img width="300" alt="Screenshot 2025-05-07 at 4 32 45 PM" src="https://github.com/user-attachments/assets/406873ad-6dc7-4bc0-b494-77e4b77777d5" />
+
+---
+
+### Overview
+
+Calendars – Planner & Organizer unifies your iCloud, Google, Exchange, and local calendars in one intuitive interface built on Apple’s native calendar APIs. Offering Day, Week, and Month views, it allows you to create, manage, and sync both events and reminders directly within the app using EventKit.
+
+---
+
+### EventKit Integration
+
+- **Permission Handling**: Requests access using `EKEventStore().requestAccess(to: .event)` and handles denial with user-friendly fallback messaging.
+- **Event Fetching**: Loads events 30 days before and after the current date using `predicate(forEventsMatching:startDate:endDate:calendars:)` for efficient data queries.
+- **Native UI Controllers**: Uses `EKEventEditViewController` for consistent “New Event” and “Edit Event” screens matching the native Calendar app.
+- **Calendar Chooser**: Integrates `EKCalendarChooser` from EventKitUI to let users select which calendars to show—no custom UI required.
+- **Immediate Refresh**: Triggers `eventStore.reset()` and reloads the list when changes are made, ensuring real-time updates with no manual refresh needed.
+
+---
+
+### Key Features
+
+- **Drag & Drop Rescheduling**: Move events directly on the timeline—EventKit automatically handles saving and syncing.
+- **Reminders Integration**: Toggle between events and reminders using EventKit’s `.event` and `.reminder` types in the same interface.
+- **Cross-Device Sync**: iCloud sync ensures all updates appear on every device automatically via the Calendar database.
+- **Multiple Calendar Support**: Connect and toggle visibility for iCloud, Google, Exchange, and local calendars—all managed as `EKCalendar` instances.
