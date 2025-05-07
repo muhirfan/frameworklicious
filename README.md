@@ -133,8 +133,3 @@ Photomator is a powerful, AI-enhanced photo editor designed exclusively for iPho
 - **Subject Selection**: Quickly select people, pets, and objects via Core ML object-detection models for targeted editing and precise masking.
 
 ---
-
-### Key Features
-
-*(Include if needed—let me know if you want to extend this with UI or export tools, RAW support, batch editing, etc.)*
-
