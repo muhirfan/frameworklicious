@@ -83,3 +83,32 @@ This simple **To-Do demo** shows CloudKit in action for complete beginners:
 - You can inspect data live using the [CloudKit Dashboard](https://developer.apple.com/icloud/cloudkit/).
 
 ---
+
+# Bear (Found in App Store)
+
+**Download**: [Bear on the App Store](https://apps.apple.com/us/app/bear-markdown-notes/id1016366447?uo=2) – *Free*
+
+<img width="300" alt="Screenshot 2025-05-07 at 4 06 39 PM" src="https://github.com/user-attachments/assets/c622ad30-0d5a-4e3b-80f5-a3a82c9f88a8" />
+
+---
+
+### Overview
+
+Bear is a beautiful, powerfully simple Markdown note-taking app for iOS, iPadOS, and macOS—ideal for everything from quick notes to full-length writing projects. It leverages Apple’s CloudKit to sync notes seamlessly across devices without additional account setup. All data is encrypted in transit and at rest under Apple’s secure infrastructure.
+
+---
+
+### CloudKit Integration
+
+- **Private Database Sync**: Stores each note as a `CKRecord` in the user's iCloud private database with automatic conflict resolution and sync.
+- **Schema-free Records**: Notes use flexible fields like `title`, `markdownText`, and `tags`—no schema migrations required.
+- **Automatic Device Sync**: Real-time push updates sync changes across all devices instantly.
+- **Encrypted Transport & Storage**: Note data is encrypted via SSL and stored securely on Apple’s servers—developers never access raw content.
+
+---
+
+### Key Features
+
+- **Cross-Device Sync**: Access and edit your notes seamlessly across iPhone, iPad, and Mac.
+- **Lightweight & Fast**: CloudKit's native sync ensures fast app performance with minimal resource usage.
+- **Privacy-Focused**: No sign-ups or passwords—your data is private and accessible only through your iCloud account.
