@@ -108,3 +108,33 @@ A simple SwiftUI app that predicts whether someone will buy a product based on a
 - Great for educational, commercial, or prototyping apps
 
 > Whether you’re a total beginner or a seasoned dev, Create ML + Core ML let you turn data into decisions — beautifully and simply.
+
+---
+
+# Photomator – Photo Editor (Found in App Store)
+
+**Download**: [Photomator on the App Store](https://apps.apple.com/us/app/photomator-photo-editor/id1444636541?uo=2) – *Free*
+
+<img width="300" alt="Screenshot 2025-05-07 at 4 16 16 PM" src="https://github.com/user-attachments/assets/4799d7b6-017b-4bd2-b5df-04c65cbe6383" />
+
+---
+
+### Overview
+
+Photomator is a powerful, AI-enhanced photo editor designed exclusively for iPhone, iPad, and Mac. Built on Apple-native technologies—SwiftUI, Metal, Core Image, and Core ML—it enables fast, non-destructive editing with professional-quality tools and effects. Perfect for photographers of all levels.
+
+---
+
+### Core ML Integration
+
+- **ML Super Resolution**: Upscale images up to 3× using a Core ML model, with on-device inference powered by the Apple Neural Engine for sharp, high-resolution results.
+- **Background Removal**: Instantly isolate subjects using a semantic segmentation `.mlmodel`, enabling one-tap background removal.
+- **Smart Tone & Color**: Automatically enhances exposure, contrast, and color vibrancy using Core ML models trained on professional image adjustments.
+- **Subject Selection**: Quickly select people, pets, and objects via Core ML object-detection models for targeted editing and precise masking.
+
+---
+
+### Key Features
+
+*(Include if needed—let me know if you want to extend this with UI or export tools, RAW support, batch editing, etc.)*
+
