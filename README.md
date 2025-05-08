@@ -161,3 +161,35 @@ Follow Apple's HIG for great voice + touch UX:
 - [What’s New in App Intents](https://developer.apple.com/videos/play/wwdc2024/10134)
 - [Bring Your App’s Core Features to Users](https://developer.apple.com/videos/play/wwdc2024/10210)
 
+---
+
+# Star Walk 2 Plus – All-Sky Map (Found in App Store)
+
+**Download**: [Star Walk 2 Plus on the App Store](https://apps.apple.com/us/app/star-walk-2-plus-all-sky-map/id1112481571?uo=2) – *Free*
+
+<img width="300" alt="Screenshot 2025-05-08 at 1 58 52 PM" src="https://github.com/user-attachments/assets/1af66e12-ec8d-47e1-9de1-5e3eaeec548d" />
+
+---
+
+### Overview
+
+Star Walk 2 Plus is an interactive astronomy guide that shows a real-time sky map aligned with your device’s orientation. Explore stars, constellations, planets, and celestial events as they happen. With 3D constellation models, satellite tracking, and eclipse alerts, it’s your all-in-one stargazing companion for iPhone and iPad. 
+
+---
+
+### App Intents (Siri Shortcuts) Integration
+
+- **“Visible Tonight” Shortcut**: Create a Siri Shortcut from the Visible Tonight section to list astronomical events visible from your current location.
+- **Hands-Free Stargazing**: Say “Hey Siri, show me tonight’s sky events” to open the app directly to current sky highlights—no manual navigation needed.
+- **Deep-Link Context**: Launches into the Visible Tonight view while preserving your date and location settings.
+- **Zero Configuration**: Powered by Apple’s App Intents framework—no setup beyond tapping “Add to Siri” is needed.
+
+---
+
+### Key Features
+
+- **Interactive Sky Map**: Real-time star map synced with your device orientation—just point and explore.
+- **3D Constellation Models**: Rotate and explore mythological constellations with legends and 3D effects.
+- **Satellite & ISS Tracking**: Follow live orbits of satellites and the International Space Station with real-time pass alerts.
+- **Night Mode & Date Travel**: Red-tinted night mode for dark-sky observing, and date scrolling for viewing past/future skies.
+- **Educational Content**: Access articles on space exploration, celestial bodies, and astronomical discoveries—all within the app.
