@@ -9,47 +9,34 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @EnvironmentObject var healthKitManager: HealthKitManager
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
-        }
-    }
+        VStack(spacing: 24) {
+            Text("HealthKit Demo")
+                .font(.largeTitle)
+                .bold()
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
+            if healthKitManager.isAuthorized {
+                Text("Steps today: \(Int(healthKitManager.stepCount))")
+                    .font(.title2)
 
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
+                Button("Refresh Steps") {
+                    healthKitManager.fetchTodayStepCount()
+                }
+                .buttonStyle(.borderedProminent)
+
+            } else {
+                Button("Grant HealthKit Access") {
+                    healthKitManager.requestAuthorization()
+                }
+                .buttonStyle(.bordered)
+            }
+        }
+        .padding()
+        .onAppear {
+            if healthKitManager.isAuthorized {
+                healthKitManager.fetchTodayStepCount()
             }
         }
     }
