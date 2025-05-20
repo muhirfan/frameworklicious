@@ -16,42 +16,45 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                if !scannedImages.isEmpty {
-                    ScrollView(.horizontal) {
-                        HStack(spacing: 16) {
-                            ForEach(Array(scannedImages.enumerated()), id: \ .offset) { index, image in
-                                VStack(alignment: .leading) {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 150, height: 200)
-                                        .border(Color.gray)
-                                    Text("Extracted Text:")
-                                        .font(.headline)
-                                    ScrollView {
-                                        Text(extractedTexts.indices.contains(index) ? extractedTexts[index] : "Recognizing...")
-                                            .font(.caption)
-                                            .padding(4)
-                                    }
-                                    .frame(width: 150, height: 100)
-                                }
-                            }
-                        }
-                        .padding()
-                    }
-                } else {
+            VStack(alignment: .center, spacing: 20) {
+                if scannedImages.isEmpty {
                     Spacer()
                     Text("No scans yet. Tap ‘Scan Document’ to start.")
                         .foregroundColor(.secondary)
                     Spacer()
+                } else {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 30) {
+                            ForEach(Array(scannedImages.enumerated()), id: \.offset) { index, image in
+                                VStack(spacing: 12) {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 200, height: 250)
+                                        .border(Color.gray)
+                                    Text("Extracted Text:")
+                                        .font(.headline)
+                                    Text(extractedTexts.indices.contains(index) ? extractedTexts[index] : "Recognizing...")
+                                        .font(.body)
+                                        .multilineTextAlignment(.center)
+                                        .padding(8)
+                                        .frame(width: 200)
+                                        .background(Color(UIColor.secondarySystemBackground))
+                                        .cornerRadius(8)
+                                }
+                                .frame(width: 220)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.vertical)
+                    }
+                    .frame(maxWidth: .infinity)
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .navigationBarTitle("VisionKit Demo", displayMode: .inline)
-            .navigationBarItems(trailing: Button(action: {
+            .navigationBarItems(trailing: Button("Scan Document") {
                 showScanner = true
-            }) {
-                Text("Scan Document")
             })
             .sheet(isPresented: $showScanner) {
                 DocumentScannerView { images in

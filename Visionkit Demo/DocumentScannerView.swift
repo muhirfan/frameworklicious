@@ -9,7 +9,7 @@ import SwiftUI
 import VisionKit
 
 struct DocumentScannerView: UIViewControllerRepresentable {
-    @Environment(\ .presentationMode) var presentationMode
+    @Environment(\.presentationMode) var presentationMode
     var onScan: ([UIImage]) -> Void
 
     func makeUIViewController(context: Context) -> VNDocumentCameraViewController {
@@ -31,10 +31,7 @@ struct DocumentScannerView: UIViewControllerRepresentable {
         }
 
         func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFinishWith scan: VNDocumentCameraScan) {
-            var images: [UIImage] = []
-            for i in 0..<scan.pageCount {
-                images.append(scan.imageOfPage(at: i))
-            }
+            let images = (0..<scan.pageCount).map { scan.imageOfPage(at: $0) }
             parent.onScan(images)
             parent.presentationMode.wrappedValue.dismiss()
         }
