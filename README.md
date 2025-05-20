@@ -1,6 +1,5 @@
 <img src="./.assets/banner.png" width="100%">
 
-# Day 1
 
 <a href="HealthKit"> <img src="./.assets/healthkit.png" alt="HealthKit" width="30%"> </a> 
 <a href="Machine%20Learning"> <img src="./.assets/machine-learning.png" alt="Machine Learning" width="30%"> </a> 
@@ -11,8 +10,6 @@
 <a href="Haptics"> <img src="./.assets/core-haptics.png" alt="CoreHaptics" width="30%"> </a> 
 <a href="SwiftUI%20Animations"> <img src="./.assets/swiftui-animations.png" alt="SwiftUI Animations" width="30%"> </a> 
 <a href="Augmented%20Reality"> <img src="./.assets/augmented-reality.png" alt="Augmented Reality" width="30%"> </a> 
-
-# Day 2
 <a href="Siri"> <img src="./.assets/siri.png" alt="SiriKit" width="30%"> </a> 
 <a href="Messages"> <img src="./.assets/messages.png" alt="Messages" width="30%"> </a> 
 <a href="Location"> <img src="./.assets/location.png" alt="Location" width="30%"> </a> 
