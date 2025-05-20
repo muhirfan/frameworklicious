@@ -7,42 +7,28 @@
 
 import SwiftUI
 import SwiftData
+import Charts
 
 struct ContentView: View {
     @EnvironmentObject var healthKitManager: HealthKitManager
 
     var body: some View {
-        VStack(spacing: 24) {
-            Text("HealthKit Demo")
-                .font(.largeTitle)
-                .bold()
-
+        Group {
             if healthKitManager.isAuthorized {
-                Text("Steps today: \(Int(healthKitManager.stepCount))")
-                    .font(.title2)
-
-                Button("Refresh Steps") {
-                    healthKitManager.fetchTodayStepCount()
-                }
-                .buttonStyle(.borderedProminent)
-
+                DashboardView()
             } else {
-                Button("Grant HealthKit Access") {
-                    healthKitManager.requestAuthorization()
+                VStack(spacing: 24) {
+                    Text("HealthKit Demo")
+                        .font(.largeTitle).bold()
+                    Button("Grant Access") {
+                        healthKitManager.requestAuthorization()
+                    }
+                    .buttonStyle(.borderedProminent)
                 }
-                .buttonStyle(.bordered)
             }
         }
         .padding()
-        .onAppear {
-            if healthKitManager.isAuthorized {
-                healthKitManager.fetchTodayStepCount()
-            }
-        }
+        .onAppear { healthKitManager.fetchAllMetrics() }
+        .onChange(of: healthKitManager.isAuthorized) { if $0 { healthKitManager.fetchAllMetrics() }}
     }
-}
-
-#Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
 }
