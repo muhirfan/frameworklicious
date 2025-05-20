@@ -17,13 +17,16 @@ class MotionManager: ObservableObject {
     @Published var accelData: CMAccelerometerData?
     @Published var gyroData: CMGyroData?
     @Published var deviceMotion: CMDeviceMotion?
+    @Published var magData: CMMagnetometerData?
     @Published var steps: Int = 0
     @Published var altitude: Double = 0.0
+    @Published var pressure: Double = 0.0
     
-    init() {
+    func startAll() {
         startAccelerometer()
         startGyro()
         startDeviceMotion()
+        startMagnetometer()
         startPedometer()
         startAltimeter()
     }
@@ -31,7 +34,7 @@ class MotionManager: ObservableObject {
     func startAccelerometer() {
         guard motionManager.isAccelerometerAvailable else { return }
         motionManager.accelerometerUpdateInterval = 0.1
-        motionManager.startAccelerometerUpdates(to: .main) { data, error in
+        motionManager.startAccelerometerUpdates(to: .main) { data, _ in
             guard let data = data else { return }
             self.accelData = data
         }
@@ -40,7 +43,7 @@ class MotionManager: ObservableObject {
     func startGyro() {
         guard motionManager.isGyroAvailable else { return }
         motionManager.gyroUpdateInterval = 0.1
-        motionManager.startGyroUpdates(to: .main) { data, error in
+        motionManager.startGyroUpdates(to: .main) { data, _ in
             guard let data = data else { return }
             self.gyroData = data
         }
@@ -49,15 +52,24 @@ class MotionManager: ObservableObject {
     func startDeviceMotion() {
         guard motionManager.isDeviceMotionAvailable else { return }
         motionManager.deviceMotionUpdateInterval = 0.1
-        motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
+        motionManager.startDeviceMotionUpdates(to: .main) { motion, _ in
             guard let motion = motion else { return }
             self.deviceMotion = motion
         }
     }
     
+    func startMagnetometer() {
+        guard motionManager.isMagnetometerAvailable else { return }
+        motionManager.magnetometerUpdateInterval = 0.1
+        motionManager.startMagnetometerUpdates(to: .main) { data, _ in
+            guard let data = data else { return }
+            self.magData = data
+        }
+    }
+    
     func startPedometer() {
         guard CMPedometer.isStepCountingAvailable() else { return }
-        pedometer.startUpdates(from: Date()) { data, error in
+        pedometer.startUpdates(from: Date()) { data, _ in
             guard let data = data else { return }
             DispatchQueue.main.async { self.steps = data.numberOfSteps.intValue }
         }
@@ -65,9 +77,10 @@ class MotionManager: ObservableObject {
     
     func startAltimeter() {
         guard CMAltimeter.isRelativeAltitudeAvailable() else { return }
-        altimeter.startRelativeAltitudeUpdates(to: .main) { data, error in
+        altimeter.startRelativeAltitudeUpdates(to: .main) { data, _ in
             guard let data = data else { return }
             self.altitude = data.relativeAltitude.doubleValue
+            self.pressure = data.pressure.doubleValue
         }
     }
     
@@ -75,6 +88,7 @@ class MotionManager: ObservableObject {
         motionManager.stopAccelerometerUpdates()
         motionManager.stopGyroUpdates()
         motionManager.stopDeviceMotionUpdates()
+        motionManager.stopMagnetometerUpdates()
         pedometer.stopUpdates()
         altimeter.stopRelativeAltitudeUpdates()
     }

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
     @StateObject private var motion = MotionManager()
@@ -23,6 +22,7 @@ struct ContentView: View {
                         Text("No data")
                     }
                 }
+
                 Section(header: Text("Gyroscope")) {
                     if let data = motion.gyroData {
                         Text("x: \(data.rotationRate.x, specifier: "%.2f")")
@@ -32,6 +32,7 @@ struct ContentView: View {
                         Text("No data")
                     }
                 }
+
                 Section(header: Text("Device Motion")) {
                     if let dm = motion.deviceMotion {
                         Text("Roll: \(dm.attitude.roll, specifier: "%.2f")")
@@ -41,16 +42,33 @@ struct ContentView: View {
                         Text("No data")
                     }
                 }
+
+                Section(header: Text("Magnetometer")) {
+                    if let data = motion.magData {
+                        Text("x: \(data.magneticField.x, specifier: "%.2f")")
+                        Text("y: \(data.magneticField.y, specifier: "%.2f")")
+                        Text("z: \(data.magneticField.z, specifier: "%.2f")")
+                    } else {
+                        Text("No data")
+                    }
+                }
+
                 Section(header: Text("Steps")) {
                     Text("\(motion.steps)")
                 }
+
                 Section(header: Text("Altitude")) {
                     Text("\(motion.altitude, specifier: "%.2f") m")
+                }
+
+                Section(header: Text("Pressure")) {
+                    Text("\(motion.pressure, specifier: "%.2f") kPa")
                 }
             }
             .navigationTitle("CoreMotion Demo")
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button("Start") { motion.startAll() }
                     Button("Stop") { motion.stopAll() }
                 }
             }
